@@ -6,11 +6,13 @@
   </div>
   <!-- form container -->
   <div class="flex justify-center">
-    <div class="flex items-center border-b border-b-2 border-teal-500 py-2 w-1/2">
-      <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Entrez le nom de votre soirée" aria-label="Youtube Link">
-      <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="button">
-        Let's Go !
-      </button>
+    <div class="w-1/2">
+    <%= form_for @room, method: :post do |f| %>
+      <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
+        <%= f.text_field :name, placeholder: "Entrez le nom de votre soirée", class: "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" %>
+        <%= f.submit "Let's Go !", class: "flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" %>
+      </div>
+    <% end %>
     </div>
   </div>
 </div>
