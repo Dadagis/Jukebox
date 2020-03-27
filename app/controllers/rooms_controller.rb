@@ -1,9 +1,6 @@
 class RoomsController < ApplicationController
   before_action :find_room, only: [:show]
 
-  def index
-  end
-
   def show
   end
 
