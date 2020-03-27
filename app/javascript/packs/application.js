@@ -9,6 +9,9 @@ require("@rails/activestorage").start()
 require("channels")
 
 import './../css/application.scss'
+import { searchVideo } from './youtube_search.js'
+
+searchVideo();
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
