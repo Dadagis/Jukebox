@@ -26,8 +26,8 @@ const searchVideo = (query) => {
   .then(response => response.json())
   .then((data) => {
     data.items.forEach((item) => {
-      let insertInfos = `<%= link_to room_musics_path do %>
-      <li class="video-card">
+      let insertInfos = `<li class="video-card">
+      <%= link_to room_musics_path(@room), method: :post do %>
       <div class="flex justify-center col-span-1 transform hover:scale-110 duration-300 ease-in-out mb-4">
       <div class="flex w-1/2">
       <img class="w-56" src="${item.snippet.thumbnails.medium.url}" alt="thumbnail">
@@ -37,8 +37,8 @@ const searchVideo = (query) => {
       </div>
       </div>
       </div>
-      </li>
-      <% end %>`;
+      <% end %>
+      </li>`;
       results.insertAdjacentHTML("afterbegin", insertInfos);
     })
   });
