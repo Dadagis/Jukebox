@@ -2,6 +2,7 @@ class RoomsController < ApplicationController
   before_action :find_room, only: [:show]
 
   def show
+    @musics = Music.all
   end
 
   def create

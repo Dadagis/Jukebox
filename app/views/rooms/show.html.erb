@@ -11,10 +11,13 @@
       <input type="submit" value="Search" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">
     </form>
   </div>
+  <%= link_to room_musics_path(@room), method: :post %>
   <!-- results block -->
   <ul id="results"></ul>
   <!-- music list div -->
   <div class="bg-gray-500 col-span-1 flex justify-center">
-    salut
+    <% @musics.each do |music| %>
+      <%= music %>
+    <% end %>
   </div>
 </div>
