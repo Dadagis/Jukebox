@@ -1,11 +1,23 @@
 <!-- grid container -->
 <div class="grid grid-cols-1 gap-4">
   <!-- Room name block -->
-  <div class="col-span-1">
+  <div class="text-center col-span-1">
     <%= @room.name %>
   </div>
   <!-- search bar block -->
-  <div class="col-span-1">
-
+  <div class="flex justify-center col-span-1">
+    <form id="search-form" class="search-form flex items-center border-b border-b-2 border-teal-500 py-2 w-1/2">
+      <input id="form" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Chercher une musique sur YouTube" aria-label="Video">
+      <input type="submit" value="Search" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">
+    </form>
+  </div>
+  <%= link_to room_musics_path(@room), method: :post %>
+  <!-- results block -->
+  <ul id="results"></ul>
+  <!-- music list div -->
+  <div class="bg-gray-500 col-span-1 flex justify-center">
+    <% @musics.each do |music| %>
+      <%= music %>
+    <% end %>
   </div>
 </div>

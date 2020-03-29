@@ -1,12 +1,80 @@
-const searchVideo = () =>{
-  const key = process.env.YOUTUBE_API_KEY
-  console.log(key);
-  console.log("salut")
-  // fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${querry}&type=video&key=${process.env.YOUTUBE_API_KEY}`)
-  // .then(response => response.json())
-  // .then((data) => {
-  //   console.log(data);
-  // });
+const results = document.querySelector('#results');
+
+const eventListener = () => {
+  const form = document.querySelector('#search-form');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    cleanAndFetch();
+  })
 }
 
-export { searchVideo };
+const cleanAndFetch = () => {
+  const query = document.querySelector('#form').value;
+  const cards = Array.from(document.querySelectorAll('.video-card'));
+  if (cards.length === 0) {
+    searchVideo(query);
+  } else {
+    cards.forEach((card) => {
+      card.remove();
+    })
+    searchVideo(query);
+  }
+}
+
+const searchVideo = (query) => {
+  fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&key=${process.env.YOUTUBE_API_KEY}`)
+  .then(response => response.json())
+  .then((data) => {
+    data.items.forEach((item) => {
+      let insertInfos = `<li class="video-card">
+      <div class="flex justify-center col-span-1 transform hover:scale-110 duration-300 ease-in-out mb-4">
+      <div class="flex w-1/2">
+      <img id="image" class="w-56" src="${item.snippet.thumbnails.medium.url}" alt="thumbnail">
+      <div id="text-div" class="border border-gray-400 bg-white p-4 flex flex-col justify-center w-full">
+      <div id="text" class="text-gray-900 font-bold text-base mb-2">${item.snippet.title}</div>
+      <div id="video-id" class="hidden">${item.id.videoId}</div>
+      </div>
+      </div>
+      </div>
+      </li>`;
+      results.insertAdjacentHTML("afterbegin", insertInfos);
+    })
+  });
+}
+
+// fetch(TON_URL_RUBY, { method: 'POST', headers: { 'Accepts': 'text/html', 'Content-Type': 'application/json' }, body: JSON.stringify({ url: url_link}) })
+//        .then(response => console.log(response.text()))
+let videoId = null
+document.addEventListener('click', (element) => {
+  if (element.target.id === "image") {
+    videoId = element.target.parentNode.childNodes[3].childNodes[3].innerText;
+  }
+  else if (element.target.id === "text-div") {
+    videoId = element.target.childNodes[3].innerText;
+  }
+  else if (element.target.id === "text") {
+    videoId = element.target.parentNode.childNodes[3].innerText;
+  }
+  saveVideo(videoId);
+})
+
+const saveVideo = (videoId) => {
+  const params = location.href;
+  // const metaCsrf = document.querySelector("meta[name='csrf-token']");
+  // const csrfToken = metaCsrf.getAttribute('content');
+  fetch(`${params}/musics`, {
+    method: 'POST',
+    headers: {
+      // 'x-csrf-token': csrfToken,
+      "Accept": "text/html",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ id: videoId })
+  })
+  .then(response => response.json())
+    .then((data) => {
+      console.log(data.hits); // Look at local_names.default
+    });
+};
+
+export { eventListener };
