@@ -3,6 +3,7 @@ class RoomsController < ApplicationController
 
   def show
     @musics = Music.all
+    @users = User.where(room_id: @room)
   end
 
   def create
