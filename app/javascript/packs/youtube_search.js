@@ -55,7 +55,9 @@ document.addEventListener('click', (element) => {
   else if (element.target.id === "text") {
     videoId = element.target.parentNode.childNodes[3].innerText;
   }
-  saveVideo(videoId);
+  if (videoId != null) {
+    saveVideo(videoId);
+  }
 })
 
 const saveVideo = (videoId) => {
@@ -69,12 +71,16 @@ const saveVideo = (videoId) => {
       "Accept": "text/html",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ id: videoId })
+    body: JSON.stringify({ videoId: videoId, room_id: 1, user_id: 1 })
   })
-  .then(response => response.json())
-    .then((data) => {
-      console.log(data.hits); // Look at local_names.default
-    });
+  // .then(response => response.json())
+  //   .then((data) => {
+  //     console.log(data.hits);
+  //   });
+  const cards = Array.from(document.querySelectorAll('.video-card'));
+  cards.forEach((card) => {
+      card.remove();
+    })
 };
 
 export { eventListener };
