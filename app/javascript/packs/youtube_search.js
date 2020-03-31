@@ -71,7 +71,7 @@ const saveVideo = (videoId) => {
       "Accept": "text/html",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ videoId: videoId, room_id: 1, user_id: 1 })
+    body: JSON.stringify({ url: videoId, room_id: 1, user_id: 1 })
   })
   // .then(response => response.json())
   //   .then((data) => {

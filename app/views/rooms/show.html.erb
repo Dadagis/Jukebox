@@ -67,13 +67,11 @@
     </script>
   <!-- music list div -->
   <div class="bg-gray-500 col-span-1 flex justify-center">
-    <% counter = 0 %>
-    <ul>
+    <% @counter = 0 %>
+    <ul id="videos-container">
     <% @musics.each do |music| %>
-      <% counter += 1 %>
-      <li id="<%= counter %>">
-        <%= music.url %>
-      </li>
+      <% @counter += 1 %>
+      <%= render 'musics/video', music: music, counter: @counter %>
     <% end %>
     </ul>
     <% @users.each do |user| %>
