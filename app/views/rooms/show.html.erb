@@ -36,7 +36,7 @@
           width: '640',
           videoId: videoId,
           events: {
-            'onReady': onPlayerReady,
+            // 'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
           }
         });
@@ -68,12 +68,14 @@
   <!-- music list div -->
   <div class="bg-gray-500 col-span-1 flex justify-center">
     <% counter = 0 %>
+    <ul>
     <% @musics.each do |music| %>
       <% counter += 1 %>
-      <p id="<%= counter %>">
+      <li id="<%= counter %>">
         <%= music.url %>
-      </p>
+      </li>
     <% end %>
+    </ul>
     <% @users.each do |user| %>
       <%= user.name %>
     <% end %>
