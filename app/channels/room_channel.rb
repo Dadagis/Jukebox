@@ -4,7 +4,7 @@ class RoomChannel < ApplicationCable::Channel
     puts "BONJOUR"
     puts "_________"
     p params[:id]
-    room = Room.find(params[:id])
+    room = Room.find(1)
     puts "_________"
     puts room
     puts "AU REVOIR"
