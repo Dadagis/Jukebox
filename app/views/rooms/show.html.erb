@@ -7,7 +7,7 @@
   <!-- search bar block -->
   <div class="flex justify-center col-span-1">
     <form id="search-form" class="search-form flex items-center border-b border-b-2 border-teal-500 py-2 w-1/2">
-      <input id="form" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Chercher une musique sur YouTube" aria-label="Video">
+      <input id="form" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Cherches une musique sur YouTube" aria-label="Video">
       <input type="submit" value="Search" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">
     </form>
   </div>
@@ -20,6 +20,7 @@
   <script>
       // 2. This code loads the IFrame Player API code asynchronously.
       var firstMusic = "<%= @first_music.url %>"
+      var counter = <%= @counter %>;
       var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
@@ -28,7 +29,6 @@
 
       // 3. This function creates an <iframe> (and YouTube player)
       //    after the API code downloads.
-      var counter = 1;
       var videoId = null;
       var player;
       function onYouTubeIframeAPIReady() {
@@ -56,7 +56,7 @@
         if (event.data === 0) {
           counter += 1;
           console.log(counter);
-          videoId = document.getElementById(`${counter}`).innerText
+          videoId = document.getElementById(`${counter}`).dataset.videoid
           console.log(videoId);
           event.target.loadVideoById(`${videoId}`);
           // onYouTubeIframeAPIReady();
@@ -68,11 +68,10 @@
     </script>
   <!-- music list div -->
   <div class="bg-gray-500 col-span-1 flex justify-center">
-    <% @counter = 0 %>
     <ul id="videos-container">
     <% @musics.each do |music| %>
-      <% @counter += 1 %>
       <%= render 'musics/video', music: music, counter: @counter %>
+      <% @counter += 1 %>
     <% end %>
     </ul>
     <% @users.each do |user| %>
