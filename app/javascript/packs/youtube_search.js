@@ -22,7 +22,7 @@ const cleanAndFetch = () => {
 }
 
 const searchVideo = (query) => {
-  fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&key=${process.env.YOUTUBE_API_KEY}`)
+  fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&key=${process.env.YOUTUBE_API_KEY}&maxResults=5`)
   .then(response => response.json())
   .then((data) => {
     data.items.forEach((item) => {
@@ -45,22 +45,24 @@ const searchVideo = (query) => {
 // fetch(TON_URL_RUBY, { method: 'POST', headers: { 'Accepts': 'text/html', 'Content-Type': 'application/json' }, body: JSON.stringify({ url: url_link}) })
 //        .then(response => console.log(response.text()))
 let videoId = null
+let videoTitle = null
 document.addEventListener('click', (element) => {
   if (element.target.id === "image") {
     videoId = element.target.parentNode.childNodes[3].childNodes[3].innerText;
-  }
-  else if (element.target.id === "text-div") {
+    videoTitle = element.target.parentNode.childNodes[3].childNodes[1].innerText;
+  } else if (element.target.id === "text-div") {
     videoId = element.target.childNodes[3].innerText;
-  }
-  else if (element.target.id === "text") {
+    videoTitle = element.target.childNodes[1].innerText;
+  } else if (element.target.id === "text") {
     videoId = element.target.parentNode.childNodes[3].innerText;
+    videoTitle = element.target.parentNode.childNodes[1].innerText;
   }
-  if (videoId != null) {
-    saveVideo(videoId);
+  if (videoId && videoTitle != null) {
+    saveVideo(videoId, videoTitle);
   }
 })
 
-const saveVideo = (videoId) => {
+const saveVideo = (videoId, videoTitle) => {
   const params = location.href;
   // const metaCsrf = document.querySelector("meta[name='csrf-token']");
   // const csrfToken = metaCsrf.getAttribute('content');
@@ -71,7 +73,7 @@ const saveVideo = (videoId) => {
       "Accept": "text/html",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ videoId: videoId, room_id: 1, user_id: 1 })
+    body: JSON.stringify({ url: videoId, title: videoTitle, room_id: 1, user_id: 1 })
   })
   // .then(response => response.json())
   //   .then((data) => {

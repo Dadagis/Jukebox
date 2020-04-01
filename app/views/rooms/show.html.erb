@@ -19,6 +19,7 @@
   </div>
   <script>
       // 2. This code loads the IFrame Player API code asynchronously.
+      var firstMusic = "<%= @first_music.url %>"
       var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
@@ -28,13 +29,13 @@
       // 3. This function creates an <iframe> (and YouTube player)
       //    after the API code downloads.
       var counter = 1;
-      var videoId = "UVk3_e7xSz4";
+      var videoId = null;
       var player;
       function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
           height: '360',
           width: '640',
-          videoId: videoId,
+          videoId: firstMusic,
           events: {
             // 'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -67,13 +68,11 @@
     </script>
   <!-- music list div -->
   <div class="bg-gray-500 col-span-1 flex justify-center">
-    <% counter = 0 %>
-    <ul>
+    <% @counter = 0 %>
+    <ul id="videos-container">
     <% @musics.each do |music| %>
-      <% counter += 1 %>
-      <li id="<%= counter %>">
-        <%= music.url %>
-      </li>
+      <% @counter += 1 %>
+      <%= render 'musics/video', music: music, counter: @counter %>
     <% end %>
     </ul>
     <% @users.each do |user| %>
