@@ -2,7 +2,8 @@
 <div class="grid grid-cols-1 gap-4">
   <!-- Room name block -->
   <div class="text-center col-span-1">
-    <%= @room.name %>
+    <h1><%= @room.name %></h1>
+    <h3>Bienvenue <%= session[:user_name] %></h3>
   </div>
   <!-- search bar block -->
   <div class="flex justify-center col-span-1">
@@ -74,8 +75,5 @@
       <% @counter += 1 %>
     <% end %>
     </ul>
-    <% @users.each do |user| %>
-      <%= user.name %>
-    <% end %>
   </div>
 </div>

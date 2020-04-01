@@ -2,8 +2,8 @@ class RoomsController < ApplicationController
   before_action :find_room, only: [:show]
 
   def show
-    @musics = Music.all
-    @users = User.where(room_id: @room)
+    @musics = Music.where(room_id: @room.id)
+    @users = User.where(room_id: @room.id)
     @first_music = Music.first
     @counter = Music.first.id
   end

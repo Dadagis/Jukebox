@@ -63,7 +63,13 @@ document.addEventListener('click', (element) => {
 })
 
 const saveVideo = (videoId, videoTitle) => {
-  const params = location.href;
+  let roomId = location.href.split('/musics')[0].split('rooms/')[1];
+  roomId = parseInt(roomId, 10);
+  if (location.pathname.endsWith('/musics/new')) {
+    var params = location.href.split('/musics')[0]
+  } else {
+    var params = location.href;
+  }
   // const metaCsrf = document.querySelector("meta[name='csrf-token']");
   // const csrfToken = metaCsrf.getAttribute('content');
   fetch(`${params}/musics`, {
@@ -73,7 +79,7 @@ const saveVideo = (videoId, videoTitle) => {
       "Accept": "text/html",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ url: videoId, title: videoTitle, room_id: 1, user_id: 1 })
+    body: JSON.stringify({ url: videoId, title: videoTitle, room_id: roomId })
   })
   // .then(response => response.json())
   //   .then((data) => {

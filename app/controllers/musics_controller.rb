@@ -3,11 +3,16 @@ class MusicsController < ApplicationController
   before_action :find_room, only: [:new, :create, :destroy]
 
   def new
-
+    @musics = Music.where(room_id: @room)
+    @counter = Music.last.id
+    @counter += 1
   end
 
   def create
     @music = Music.new(music_params)
+    user_name = session[:user_name]
+    user_id = User.where(name: user_name)[0].id
+    @music.user_id = user_id
     @counter = Music.last.id
     @counter += 1
     if @music.save
@@ -21,7 +26,7 @@ class MusicsController < ApplicationController
   private
 
   def music_params
-    params.require(:music).permit(:url, :title, :room_id, :user_id)
+    params.require(:music).permit(:url, :title, :room_id)
   end
 
   def find_room
