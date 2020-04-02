@@ -1,27 +1,27 @@
 <!-- grid container -->
-<div class="grid grid-cols-1 gap-4">
+<div class="grid grid-cols-1 gap-4 bg-indigo-900">
   <!-- Room name block -->
   <div class="text-center col-span-1">
-    <h1><%= @room.name %></h1>
-    <h3>Bienvenue <%= session[:user_name] %></h3>
+    <h1 class="text-4xl text-orange-200"><%= @room.name %></h1>
+    <h3 class="text-orange-200">Bienvenue <%= session[:user_name] %></h3>
   </div>
   <!-- search bar block -->
   <div class="flex justify-center col-span-1">
     <form id="search-form" class="search-form flex items-center border-b border-b-2 border-teal-500 py-2 w-1/2">
-      <input id="form" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Cherches une musique sur YouTube" aria-label="Video">
+      <input id="form" class="appearance-none text-orange-200 bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Cherches une musique sur YouTube" aria-label="Video">
       <input type="submit" value="Search" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">
     </form>
   </div>
   <!-- results block -->
   <ul id="results"></ul>
 
+  <!-- player div from the youtube API doc -->
   <div class="col-span-1 flex justify-center">
   <div id="player"></div>
   </div>
   <script>
       // 2. This code loads the IFrame Player API code asynchronously.
       var firstMusic = "<%= @first_music.url %>"
-      var counter = <%= @counter %>;
       var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
@@ -55,9 +55,8 @@
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data === 0) {
-          counter += 1;
-          console.log(counter);
-          videoId = document.getElementById(`${counter}`).dataset.videoid
+          document.querySelector('#next-music').remove();
+          videoId = document.querySelector('#next-music').dataset.videoid;
           console.log(videoId);
           event.target.loadVideoById(`${videoId}`);
           // onYouTubeIframeAPIReady();
@@ -66,13 +65,16 @@
       function stopVideo() {
         player.stopVideo();
       }
+
+      // const deleteMusic = () => {
+
+      // }
     </script>
-  <!-- music list div -->
-  <div class="bg-gray-500 col-span-1 flex justify-center">
+  <!-- music playlist div -->
+  <div class="col-span-1 flex justify-center overflow-scroll h-64">
     <ul id="videos-container">
     <% @musics.each do |music| %>
-      <%= render 'musics/video', music: music, counter: @counter %>
-      <% @counter += 1 %>
+      <%= render 'musics/video', music: music %>
     <% end %>
     </ul>
   </div>

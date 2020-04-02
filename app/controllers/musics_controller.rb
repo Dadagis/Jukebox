@@ -4,20 +4,17 @@ class MusicsController < ApplicationController
 
   def new
     @musics = Music.where(room_id: @room)
-    @counter = Music.last.id
-    @counter += 1
   end
 
   def create
     @music = Music.new(music_params)
-    user_name = session[:user_name]
+    user_name = session[:user_name] # Use cookies to get the username
     user_id = User.where(name: user_name)[0].id
     @music.user_id = user_id
-    @counter = Music.last.id
-    @counter += 1
     if @music.save
-      RoomChannel.broadcast_to(@room, render_to_string(partial: 'video', locals: { music: @music, counter: @counter }))
+      RoomChannel.broadcast_to(@room, render_to_string(partial: 'video', locals: { music: @music }))
     end
+    @last_music = Music.last
   end
 
   def destroy

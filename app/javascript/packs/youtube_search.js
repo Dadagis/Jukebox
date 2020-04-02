@@ -1,5 +1,6 @@
 const results = document.querySelector('#results');
 
+// listen a click on the submit button to search a video
 const eventListener = () => {
   const form = document.querySelector('#search-form');
   form.addEventListener('submit', (e) => {
@@ -8,6 +9,7 @@ const eventListener = () => {
   })
 }
 
+// Clean all the videos cards if some are displayed, and send the query to the fetch function
 const cleanAndFetch = () => {
   const query = document.querySelector('#form').value;
   const cards = Array.from(document.querySelectorAll('.video-card'));
@@ -21,6 +23,7 @@ const cleanAndFetch = () => {
   }
 }
 
+// fetch the youtube API with query, and insert HTML to the dom
 const searchVideo = (query) => {
   fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&key=${process.env.YOUTUBE_API_KEY}&maxResults=5`)
   .then(response => response.json())
@@ -44,6 +47,9 @@ const searchVideo = (query) => {
 
 // fetch(TON_URL_RUBY, { method: 'POST', headers: { 'Accepts': 'text/html', 'Content-Type': 'application/json' }, body: JSON.stringify({ url: url_link}) })
 //        .then(response => console.log(response.text()))
+
+
+// store title and the ID of the clicked video card and send it to the save method
 let videoId = null
 let videoTitle = null
 document.addEventListener('click', (element) => {
@@ -62,6 +68,7 @@ document.addEventListener('click', (element) => {
   }
 })
 
+// post request with fetch to save the chosen video
 const saveVideo = (videoId, videoTitle) => {
   let roomId = location.href.split('/musics')[0].split('rooms/')[1];
   roomId = parseInt(roomId, 10);
@@ -81,10 +88,8 @@ const saveVideo = (videoId, videoTitle) => {
     },
     body: JSON.stringify({ url: videoId, title: videoTitle, room_id: roomId })
   })
-  // .then(response => response.json())
-  //   .then((data) => {
-  //     console.log(data.hits);
-  //   });
+  .then(response => console.log(response.text()))
+
   const cards = Array.from(document.querySelectorAll('.video-card'));
   cards.forEach((card) => {
       card.remove();
