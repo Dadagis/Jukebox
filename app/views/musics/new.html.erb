@@ -1,0 +1,34 @@
+<!-- grid container -->
+<div class="grid grid-cols-1 gap-4">
+  <!-- Room name block -->
+  <div class="text-center col-span-1">
+    <%= @room.name %>
+  </div>
+  <!-- nickname block -->
+  <div class="flex justify-center col-span-1">
+    <form id="nickname-form" class=" nickname-form flex items-center border-b border-b-2 border-teal-500 py-2 w-1/2">
+      <input id="name-form" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Entres ton nom" aria-label="nickname">
+      <input type="submit" id="name-button" value="Envoyer" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">
+    </form>
+  </div>
+
+  <div class="flex justify-center col-span-1">
+    <form id="search-form" class="search-form flex items-center border-b border-b-2 border-teal-500 py-2 w-1/2">
+      <input id="form" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Cherches une musique sur YouTube" aria-label="nickname">
+      <input type="submit" value="Search" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">
+    </form>
+  </div>
+
+  <!-- results block -->
+  <ul id="results"></ul>
+
+  <!-- music list div -->
+  <div class="bg-gray-500 col-span-1 flex justify-center">
+    <ul id="videos-container">
+    <% @musics.each do |music| %>
+      <%= render 'musics/video', music: music, counter: @counter %>
+      <% @counter += 1 %>
+    <% end %>
+    </ul>
+  </div>
+</div>

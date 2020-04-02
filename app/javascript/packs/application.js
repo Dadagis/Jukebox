@@ -10,8 +10,16 @@ require("channels")
 
 import './../css/application.scss'
 import { eventListener } from './youtube_search.js'
+import { usernameListener } from './username_setter.js'
 
-eventListener();
+if (window.location.pathname.startsWith('/rooms')) {
+  console.log('bonjour');
+  eventListener();
+}
+ if (window.location.pathname.endsWith('/musics/new')) {
+  console.log('salut');
+  usernameListener();
+}
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
