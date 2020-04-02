@@ -1,5 +1,5 @@
 <!-- grid container -->
-<div class="grid grid-cols-1 gap-4 bg-indigo-900">
+<div class="grid grid-cols-1 gap-4">
   <!-- Room name block -->
   <div class="text-center col-span-1">
     <h1 class="text-4xl text-orange-200"><%= @room.name %></h1>
@@ -73,6 +73,7 @@
   <!-- music playlist div -->
   <div class="col-span-1 flex justify-center overflow-scroll h-64">
     <ul id="videos-container">
+      <h4 class="text-orange-200 text-3xl">A suivre...</h4>
     <% @musics.each do |music| %>
       <%= render 'musics/video', music: music %>
     <% end %>

@@ -1,15 +1,15 @@
 <!-- grid container -->
 <div class="grid grid-cols-1 gap-4">
-  <h1 class="col-span-1 text-3xl text-center">Jukebox</h1>
+  <h1 class="col-span-1 text-3xl text-center text-orange-200">Jukebox</h1>
   <div class="col-span-1 text-center">
-    <p class="h-full flex justify-center items-center">Playlist commune en soirée</p>
+    <p class="h-full flex justify-center items-center text-orange-200">Playlist commune pendant le confinement</p>
   </div>
   <!-- form container -->
   <div class="flex justify-center col-span-1">
     <div class="w-1/2">
     <%= form_for (@room), method: :post do |f| %>
       <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
-        <%= f.text_field :name, placeholder: "Entrez le nom de votre soirée", class: "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" %>
+        <%= f.text_field :name, placeholder: "Entrez le nom de votre soirée", class: "text-orange-200 appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" %>
         <%= f.submit "Let's Go !", class: "flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" %>
       </div>
     <% end %>
