@@ -65,6 +65,8 @@ document.addEventListener('click', (element) => {
   }
   if (videoId && videoTitle != null) {
     saveVideo(videoId, videoTitle);
+    videoId = null
+    videoTitle = null
   }
 })
 
