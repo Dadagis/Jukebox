@@ -2,7 +2,7 @@
 <div class="grid grid-cols-1 gap-4 h-screen">
   <!-- Room name block -->
   <div class="text-center col-span-1">
-    <p class="text-4xl text-orange-200"><%= @room.name %></p>
+    <h1 id="room-infos" class="text-4xl text-orange-200" data-roomid="<%= @room.id %>"><%= @room.name %></h1>
   </div>
   <!-- nickname block -->
   <div class="flex justify-center col-span-1">
