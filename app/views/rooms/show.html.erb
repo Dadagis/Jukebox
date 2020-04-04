@@ -2,7 +2,7 @@
 <div class="grid grid-cols-1 gap-4">
   <!-- Room name block -->
   <div class="text-center col-span-1">
-    <h1 class="text-4xl text-orange-200"><%= @room.name %></h1>
+    <h1 id="room-infos" class="text-4xl text-orange-200" data-roomid="<%= @room.id %>"><%= @room.name %></h1>
     <h3 class="text-orange-200">Bienvenue <%= session[:user_name] %></h3>
   </div>
   <!-- search bar block -->
@@ -55,7 +55,9 @@
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data === 0) {
-          document.querySelector('#next-music').remove();
+          const musicToDelete = document.querySelector('#next-music');
+          deleteMusic(musicToDelete);
+          musicToDelete.remove();
           videoId = document.querySelector('#next-music').dataset.videoid;
           console.log(videoId);
           event.target.loadVideoById(`${videoId}`);
@@ -66,9 +68,16 @@
         player.stopVideo();
       }
 
-      // const deleteMusic = () => {
-
-      // }
+      const deleteMusic = (musicToDelete) => {
+        const idToDelete = musicToDelete.dataset.id;
+        const deleteParams = location.href;
+        fetch(`${deleteParams}/musics/${idToDelete}`, {
+          method: 'DELETE'
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
     </script>
   <!-- music playlist div -->
   <div class="col-span-1 flex justify-center overflow-scroll h-64">

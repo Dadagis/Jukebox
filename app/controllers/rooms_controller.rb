@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   def show
     @musics = Music.where(room_id: @room.id)
     @users = User.where(room_id: @room.id)
-    @first_music = Music.first
+    @first_music = Music.where(room_id: @room.id).first
   end
 
   def create

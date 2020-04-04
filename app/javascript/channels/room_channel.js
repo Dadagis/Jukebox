@@ -1,8 +1,9 @@
 import consumer from "./consumer"
 
 const videosContainer = document.getElementById('videos-container');
+const id = document.getElementById('room-infos').dataset.roomid;
 
-consumer.subscriptions.create("RoomChannel", {
+consumer.subscriptions.create({channel: "RoomChannel", id: id}, {
   connected() {
     // Called when the subscription is ready for use on the server
   },
